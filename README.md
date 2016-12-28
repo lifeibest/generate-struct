@@ -3,6 +3,7 @@ generate struct from mysql table for golang, a small userful tool
 
 
 how to use
+
 cd generate-struct
 
 1、change const variables fro db config
