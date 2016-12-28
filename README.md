@@ -20,6 +20,8 @@ const (
 
 2、type this
 //table_name 数据库表名
+<pre><code>
 go run generate.go  table_name  
+</code></pre>
 
 
