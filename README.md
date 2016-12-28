@@ -7,7 +7,7 @@ cd generate-struct
 
 1、change const variables fro db config
 vi generate.go
-
+<pre><code>
 const (
 	DB_TYPE = "mysql"
 	DB_HOST = "127.0.0.1"
@@ -16,6 +16,7 @@ const (
 	DB_PASS = "root"
 	DB_NAME = "dbname"
 )
+</code></pre>
 
 2、type this
 //table_name 数据库表名
