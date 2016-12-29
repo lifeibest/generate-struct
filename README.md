@@ -6,7 +6,7 @@ how to use
 
 cd generate-struct
 
-1、change const variables fro db config
+1、change const variables for db config
 vi generate.go
 <pre><code>
 const (
