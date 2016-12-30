@@ -25,7 +25,7 @@ const (
 	DB_PORT = "3306"
 	DB_USER = "root"
 	DB_PASS = "root"
-	DB_NAME = "feiadmin"
+	DB_NAME = "qqxinli"
 )
 
 func main() {
@@ -52,6 +52,26 @@ func main() {
 	//fmt.Println(query)
 
 	results := DbRows(query)
+
+	// type Column struct {
+	// 	Name    string
+	// 	Comment string
+	// }
+
+	//查询字段注释
+	column := make(map[string]string)
+	var sql_1 = "select COLUMN_NAME,column_comment from INFORMATION_SCHEMA.Columns where table_name='" + table_name + "' and table_schema='" + DB_NAME + "'"
+	query_1, err := db.Query(sql_1)
+	if err != nil {
+		fmt.Println(err)
+	}
+	results_1 := DbRows(query_1)
+	for _, v := range results_1 {
+		var k = Upstr(v["COLUMN_NAME"])
+		column[k] = v["column_comment"]
+	}
+	// fmt.Println(column)
+
 	fmt.Printf("type %s struct {\n", Upstr(table_name))
 	for _, v := range results { //查询出来的数组
 		//fmt.Println(k)
@@ -82,7 +102,7 @@ func main() {
 		if s_type == "time.Time" {
 			s_key = "`orm:\"auto_now_add;type(datetime)\"`"
 		}
-		fmt.Println(s_field, s_type, s_key)
+		fmt.Println(s_field, s_type, s_key, "//", column[s_field])
 	}
 	fmt.Println("}")
 
@@ -110,6 +130,10 @@ func DbRows(query *sql.Rows) (results []map[string]string) {
 		results = append(results, row) //装入结果集中
 		i++
 	}
+	// for i, k := range results {
+	// 	fmt.Println(i)
+	// 	fmt.Println(k)
+	// }
 	return
 }
 
